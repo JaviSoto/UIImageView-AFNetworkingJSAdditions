@@ -74,19 +74,14 @@ static char imageURLKey;
                 
                 self.imageURL = newImageURL;
                 
-                BOOL cachedImage = !request && !response;
-                
-                // Disable fadeIn if an image is already set (to avoid a flickering effect)
-                BOOL shouldFadeIn = fadeIn;
-                if (cachedImage || (self.image != placeholderImage && self.image != nil))
-                {
-                    shouldFadeIn = NO;
-                }
+				BOOL cachedImage = !request && !response;
+				
+                BOOL shouldFadeIn = fadeIn && !cachedImage;
                 
                 if (shouldFadeIn)
                 {
                     self.alpha = 0.0f;
-                    [UIView animateWithDuration:kImageFadeInAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
+                    [UIView animateWithDuration:kImageFadeInAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
                         self.alpha = 1.0f;
                     } completion:NULL];
                 }
