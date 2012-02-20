@@ -52,12 +52,12 @@ static char imageURLKey;
 
 - (void)JSSetImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder
 {
-    [self JSSetImageWithURL:url placeholderImage:placeholder fadeIn:NO];
+    [self setImageWithURL:url placeholderImage:placeholder fadeIn:NO];
 }
 
 - (void)JSSetImageWithURL:(NSURL *)url
 {
-    [self JSSetImageWithURL:url fadeIn:NO];
+    [self setImageWithURL:url fadeIn:NO];
 }
 
 - (void)setImageWithURLRequest:(NSURLRequest *)urlRequest placeholderImage:(UIImage *)placeholderImage fadeIn:(BOOL)fadeIn success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure

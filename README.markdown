@@ -2,12 +2,12 @@
 Category on UIImageView complementary of that of AFNetworking  meant for perfect perfomance on table views and the ability to fade images in.
 
 #Available methods:
-- setImageWithURL:placeholderImage:fadeIn:success:failure;
-- setImageWithURL:placeholderImage:fadeIn:finished;
-- setImageWithURL:fadeIn:finished;
-- setImageWithURL:finished;
-- setImageWithURL:placeholderImage:fadeIn;
-- setImageWithURL:fadeIn;
+- setImageWithURL:placeholderImage:fadeIn:success:failure:
+- setImageWithURL:placeholderImage:fadeIn:finished:
+- setImageWithURL:fadeIn:finished:
+- setImageWithURL:finished:
+- setImageWithURL:placeholderImage:fadeIn:
+- setImageWithURL:fadeIn:
 
 #License
 Copyright 2012 Javier Soto (ios@javisoto.es)
