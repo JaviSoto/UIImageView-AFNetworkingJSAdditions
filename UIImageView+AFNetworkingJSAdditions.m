@@ -105,6 +105,11 @@ static char imageURLKey;
         {
             self.imageURL = nil;
             self.image = placeholderImage;
+            
+            if (failure)
+            {
+                failure(nil, nil, nil);
+            }
         }
     }
     else
