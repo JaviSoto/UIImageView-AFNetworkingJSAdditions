@@ -49,6 +49,7 @@
 
 - (void)setImageWithURL:(NSURL *)url
                  fadeIn:(BOOL)fadeIn;
-				
+
+- (void)setImageWithURL:(NSURL *)url;
 
 @end

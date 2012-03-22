@@ -47,7 +47,7 @@ static char imageURLKey;
 {
     [self swizzleSelector:@selector(dealloc) ofClass:[UIImageView class] withSelector:@selector(JSImageViewAdditionsDealloc)];
     [self swizzleSelector:@selector(setImageWithURL:placeholderImage:) ofClass:[UIImageView class] withSelector:@selector(JSSetImageWithURL:placeholderImage:)];
-    [self swizzleSelector:@selector(setImageWithURL:) ofClass:[UIImageView class] withSelector:@selector(JSSetImageWithURL:)];
+    [self swizzleSelector:@selector(setImageWithURL:) ofClass:[UIImageView class] withSelector:@selector(setImageWithURL:)];
 }
 
 - (void)JSSetImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder
@@ -55,7 +55,7 @@ static char imageURLKey;
     [self setImageWithURL:url placeholderImage:placeholder fadeIn:NO];
 }
 
-- (void)JSSetImageWithURL:(NSURL *)url
+- (void)setImageWithURL:(NSURL *)url
 {
     [self setImageWithURL:url fadeIn:NO];
 }
