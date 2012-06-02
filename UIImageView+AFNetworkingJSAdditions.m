@@ -172,7 +172,7 @@ void js_swizzle(Class c, SEL originalSelector, SEL newSelector)
     Method origMethod = class_getInstanceMethod(c, originalSelector);
     Method newMethod = class_getInstanceMethod(c, newSelector);
     
-    if (class_addMethod(c, orig, method_getImplementation(newMethod),
+    if (class_addMethod(c, originalSelector, method_getImplementation(newMethod),
                         method_getTypeEncoding(newMethod)))
     {
         class_replaceMethod(c, newSelector, method_getImplementation(origMethod),
