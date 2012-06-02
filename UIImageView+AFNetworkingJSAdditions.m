@@ -23,11 +23,7 @@
 #define kImageFadeInAnimationDuration 0.2
 #define kDefaultImageDownloadTimeut 30.0
 
-@interface UIImageView()
-@property (nonatomic, copy) NSURL *imageURL;
-
-+ (void)swizzleSelector:(SEL)orig ofClass:(Class)c withSelector:(SEL)newSelector;
-@end
+void js_swizzle(Class c, SEL originalSelector, SEL newSelector);
 
 @implementation UIImageView (AFNetworkingJSAdditions)
 
@@ -45,9 +41,8 @@ static char imageURLKey;
 
 + (void)load
 {
-    [self swizzleSelector:@selector(dealloc) ofClass:[UIImageView class] withSelector:@selector(JSImageViewAdditionsDealloc)];
-    [self swizzleSelector:@selector(setImageWithURL:placeholderImage:) ofClass:[UIImageView class] withSelector:@selector(JSSetImageWithURL:placeholderImage:)];
-    [self swizzleSelector:@selector(setImageWithURL:) ofClass:[UIImageView class] withSelector:@selector(setImageWithURL:)];
+    js_swizzle(self, @selector(setImageWithURL:placeholderImage:), @selector(JSSetImageWithURL:placeholderImage:));
+    js_swizzle(self, @selector(setImageWithURL:), @selector(setImageWithURL:));
 }
 
 - (void)JSSetImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder
@@ -64,7 +59,7 @@ static char imageURLKey;
 {
     NSURL *newImageURL = urlRequest.URL;
     
-    if (![self.imageURL isEqual:newImageURL]) // if it's a different URL
+    if (![self.imageURL isEqual:newImageURL])
     {       
         if (urlRequest.URL)
         {
@@ -170,16 +165,11 @@ static char imageURLKey;
     [self setImageWithURL:url placeholderImage:nil fadeIn:fadeIn finished:NULL];
 }
 
-- (void)JSImageViewAdditionsDealloc
-{    
-    [self JSImageViewAdditionsDealloc];
-}
-
 /* Swizzling */
 
-+ (void)swizzleSelector:(SEL)orig ofClass:(Class)c withSelector:(SEL)newSelector;
+void js_swizzle(Class c, SEL originalSelector, SEL newSelector)
 {
-    Method origMethod = class_getInstanceMethod(c, orig);
+    Method origMethod = class_getInstanceMethod(c, originalSelector);
     Method newMethod = class_getInstanceMethod(c, newSelector);
     
     if (class_addMethod(c, orig, method_getImplementation(newMethod),
